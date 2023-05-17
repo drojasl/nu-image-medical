@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Client;
+use App\Http\Classes\MailHandler;
 
 class ClientController extends Controller
 {
@@ -22,14 +23,20 @@ class ClientController extends Controller
             $client->phone = $validatedData['phone'];
             $client->save();
 
+            $mailHandler = new MailHandler($client);
+            $mailHandler->sendEmail();
+
         } catch(\Illuminate\Validation\ValidationException $e) {
             return response()->json(['message' => 'Error validating the input data', 'error' => $e->getMessage()], 422);
 
         } catch(\Illuminate\Database\QueryException $e) {
             return response()->json(['message' => 'Error saving in database', 'error' => $e->getMessage()], 503);
             
+        } catch(\Symfony\Component\Mailer\Exception\TransportException $e) {
+            // TODO: Send to a queue to retry the mail notification
+            return response()->json(['message' => 'Error sending the email', 'error' => $e->getMessage()], 503);
+            
         } catch(\Exception $e) {
-            print_r($e->getTraceAsString());
             return response()->json(['message' => 'Error trying to create client', 'error' => $e->getMessage()], 500);
         }
 
