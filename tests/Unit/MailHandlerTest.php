@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Unit;
 
 use App\Http\Classes\MailHandler;
 use App\Mail\MailClientCreated;
@@ -28,7 +28,7 @@ class MailHandlerTest extends TestCase
         $clientData = [
             'name' => $this->faker->name,
             'email' => $this->faker->unique()->safeEmail,
-            'phone' => '',
+            'phone' => $this->faker->phoneNumber,
             'comments' => $this->faker->sentence(7),
         ];
         $client = new Client();

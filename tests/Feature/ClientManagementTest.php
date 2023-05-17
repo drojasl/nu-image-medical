@@ -101,7 +101,7 @@ class ClientManagementTest extends TestCase
         $clientData = [
             'name' => $this->faker->name,
             'email' => $this->faker->unique()->safeEmail,
-            'phone' => $this->faker->unique()->safeEmail,
+            'phone' => $this->faker->phoneNumber,
             'comments' => '',
         ];
         $response = $this->post('/api/client/create', $clientData);
@@ -119,7 +119,7 @@ class ClientManagementTest extends TestCase
         $clientData = [
             'name' => $this->faker->name,
             'email' => $this->faker->unique()->safeEmail,
-            'phone' => $this->faker->unique()->safeEmail,
+            'phone' => $this->faker->phoneNumber,
             'comments' => $this->faker->sentence(70),
         ];
         $response = $this->post('/api/client/create', $clientData);

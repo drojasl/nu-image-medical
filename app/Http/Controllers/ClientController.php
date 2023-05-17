@@ -8,7 +8,22 @@ use App\Http\Classes\MailHandler;
 
 class ClientController extends Controller
 {
-    function create(Request $request) {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    function index() {
+        return response()->json(Client::all());
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    function store(Request $request) {
         try {
             // Get and validate the entered data
             $validatedData = $request->validate([

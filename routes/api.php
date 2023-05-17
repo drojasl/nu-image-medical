@@ -20,5 +20,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::controller(ClientController::class)->group(function() {
-    Route::post('client/create', 'create')->name('cursos-create');
+    Route::get('clients', 'index')->name('clients');
+    Route::post('client/create', 'store')->name('clients-create');
 });
