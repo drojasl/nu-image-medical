@@ -10,6 +10,7 @@ class ClientController extends Controller
 {
     function create(Request $request) {
         try {
+            // Get and validate the entered data
             $validatedData = $request->validate([
                 'name' => 'required|string',
                 'email' => 'required|email',
@@ -17,12 +18,15 @@ class ClientController extends Controller
                 'comments' => 'nullable|string|max:100',
             ]);
 
+            // Create Client object
             $client = new Client();
             $client->name = $validatedData['name'];
             $client->email = $validatedData['email'];
             $client->phone = $validatedData['phone'];
+            $client->comments = $validatedData['comments'];
             $client->save();
 
+            // Send Email
             $mailHandler = new MailHandler($client);
             $mailHandler->sendEmail();
 
@@ -40,6 +44,6 @@ class ClientController extends Controller
             return response()->json(['message' => 'Error trying to create client', 'error' => $e->getMessage()], 500);
         }
 
-        return response()->json(['message' => 'Client saved succesfully'], 200);
+        return response()->json(['message' => 'Client saved succesfully'], 201);
     }
 }
