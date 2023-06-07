@@ -17,6 +17,9 @@ class TwoFactorAuthenticate
      */
     public function handle(Request $request, Closure $next)
     {
+        if (!auth()->user()) {
+            return redirect('/login');
+        }
         if (auth()->user()->tfa_verified) {
             return $next($request);
         }

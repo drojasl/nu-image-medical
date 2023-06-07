@@ -18,6 +18,7 @@ class ExternalApiService
         try {
             $response = $client->request('POST', $url,
                 [
+                    // TODO: Move API keys to env file
                     'headers' => [
                         'X-RapidAPI-Host' => 'telesign-telesign-send-sms-verification-code-v1.p.rapidapi.com',
                         'X-RapidAPI-Key' => '6388d0e157mshbe15331cdce7643p14a382jsn0b7b778c0edb',
@@ -51,6 +52,7 @@ class ExternalApiService
         try {
             $response = $client->request('POST', $url,
                 [
+                    // TODO: Move API keys to env file
                     'headers' => [
                         'X-RapidAPI-Host' => 'vindecoder.p.rapidapi.com',
                         'X-RapidAPI-Key' => '6388d0e157mshbe15331cdce7643p14a382jsn0b7b778c0edb',
@@ -87,6 +89,7 @@ class ExternalApiService
         try {
             $response = $client->request('POST', $url,
                 [
+                    // TODO: Move API keys to env file
                     'headers' => [
                         'X-RapidAPI-Host' => 'vindecoder.p.rapidapi.com',
                         'X-RapidAPI-Key' => '6388d0e157mshbe15331cdce7643p14a382jsn0b7b778c0edb',
