@@ -19,6 +19,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'phone',
         'email',
         'password',
     ];
@@ -41,4 +42,24 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function generateTFA() {
+        $this->tfa_code = rand(1000, 9999);
+        $this->update();
+    }
+
+    public function validateTFA(string $code) {
+        if ($this->tfa_code === $code) {
+            $this->tfa_verified = true;
+            $this->update();
+            return true;
+        }
+        return false;
+    }
+
+    public function cleanTFA() {
+        $this->tfa_code = null;
+        $this->tfa_verified = false;
+        $this->update();
+    }
 }
